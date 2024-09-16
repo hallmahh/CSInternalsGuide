@@ -1,18 +1,18 @@
-$(document).ready(function() {
-	$('#sidebarCollapse').on('click', function() {
-		$('#sidebar').toggleClass('active');
-		$(this).toggleClass('active');
-	});
-});
+const shareButtons = document.querySelectorAll('.tile-share-button')
+console.log(shareButtons)
 
-$("[data-trigger]").on("click", function() {
-	var trigger_id = $(this).attr('data-trigger');
-	$(trigger_id).toggleClass("show");
-	$('body').toggleClass("offcanvas-active");
-});
+async function copyText(e) {
+	//prevent button going to the site
+	e.preventDefault()
+	const link = this.getAttribute('link')
+	console.log(link)
+	try {
+		await navigator.clipboard.writeText(link)
+	} catch (err) {
+		console.error(err)
+	}
+}
 
-// close button 
-$(".btn-close").click(function(e) {
-	$(".navbar-collapse").removeClass("show");
-	$("body").removeClass("offcanvas-active");
-});
+shareButtons.forEach(shareButton =>
+	
+	shareButton.addEventListener('click', copyText))
